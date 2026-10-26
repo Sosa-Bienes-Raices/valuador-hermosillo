@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcula el Valor de tu Propiedad | Hermosillo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Encabezado -->
+  <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <span class="text-2xl text-blue-600 font-black"><i class="fa-solid fa-house-chimney"></i></span>
+        <span class="text-xl font-bold tracking-tight text-slate-900">Valuador Inmobiliario</span>
+      </div>
+      <span class="text-xs font-semibold bg-blue-50 text-blue-700 py-1 px-3 rounded-full border border-blue-200">Hermosillo, Sonora</span>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal -->
+  <main class="max-w-xl mx-auto px-4 py-8 flex-grow w-full">
+    
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">¿Cuánto vale tu propiedad?</h1>
+      <p class="text-slate-600 mt-2 text-sm sm:text-base">Obtén un estimado en 1 minuto comparando propiedades activas en tu colonia.</p>
+    </div>
+
+    <!-- TARJETA DEL FORMULARIO -->
+    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 sm:p-8">
+
+      <!-- PASO A: DATOS DE LA PROPIEDAD -->
+      <div id="paso-propiedad">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Paso 1 de 2: Características</span>
+          <span class="text-xs text-slate-400">Datos del inmueble</span>
+        </div>
+
+        <form id="form-propiedad" class="space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">¿Qué deseas hacer?</label>
+              <select id="operacion" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="Venta">Vender</option>
+                <option value="Renta">Rentar</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Tipo de inmueble</label>
+              <select id="tipo" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="Casa">Casa</option>
+                <option value="Departamento">Departamento</option>
+                <option value="Terreno">Terreno</option>
+                <option value="Local Comercial">Local Comercial</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Campo de Colonia con Autocompletado del catálogo completo -->
+          <div class="relative">
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-semibold text-slate-700">Colonia o Fraccionamiento *</label>
+              <span class="text-[10px] text-blue-600 font-medium"><i class="fa-solid fa-magnifying-glass"></i> Escribe para autocompletar</span>
+            </div>
+            <input 
+              type="text" 
+              id="colonia" 
+              list="lista-colonias" 
+              autocomplete="off"
+              required 
+              placeholder="Ej. Versalles, Corceles, Montecarlo, San Benito..." 
+              class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+            
+            <datalist id="lista-colonias"></datalist>
+          </div>
+
+          <!-- Metros Opcionales -->
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="text-xs font-semibold text-slate-700">M² Terreno</label>
+                <span class="text-[10px] text-slate-400">Opcional</span>
+              </div>
+              <input type="number" id="terreno" placeholder="Si no sabes, déjalo vacío" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="text-xs font-semibold text-slate-700">M² Construcción</label>
+                <span class="text-[10px] text-slate-400">Opcional</span>
+              </div>
+              <input type="number" id="construccion" placeholder="Si no sabes, déjalo vacío" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Recámaras</label>
+              <select id="recamaras" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="1">1 recámara</option>
+                <option value="2">2 recámaras</option>
+                <option value="3" selected>3 recámaras</option>
+                <option value="4">4 recámaras</option>
+                <option value="5+">5 o más recámaras</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Plantas / Pisos</label>
+              <select id="pisos" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="1 planta" selected>1 planta</option>
+                <option value="2 plantas">2 plantas</option>
+                <option value="3 plantas">3 plantas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Baños compl.</label>
+              <select id="banos_completos" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4+">4+</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Medios baños</label>
+              <select id="medios_banos" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="0">0</option>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Cocheras</label>
+              <select id="cocheras" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="0">0</option>
+                <option value="1">1 auto</option>
+                <option value="2" selected>2 autos</option>
+                <option value="3+">3+ autos</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ÁREA DE TEXTO MULTILÍNEA -->
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-semibold text-slate-700">Equipamiento, acabados y extras destacados</label>
+              <span class="text-[10px] text-blue-600 font-medium">Mayor detalle = mejor cálculo</span>
+            </div>
+            <textarea 
+              id="detalles" 
+              rows="5" 
+              placeholder="- Aire acondicionado y calefacción central&#10;- 3 minisplits&#10;- Cocina integral con granito&#10;- Sistema de alarma y cámaras de seguridad&#10;- Hidroneumático, tinaco y boiler&#10;- Totalmente amueblado (si aplica)..." 
+              class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-y"></textarea>
+            <p class="text-[11px] text-slate-400 mt-1">Escribe o pega cada elemento hacia abajo con guiones o renglones libres.</p>
+          </div>
+
+          <button type="button" onclick="irAPasoContacto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition duration-200 text-base shadow-md mt-4">
+            Continuar al Siguiente Paso &rarr;
+          </button>
+        </form>
+      </div>
+
+      <!-- PASO B: DATOS DE CONTACTO -->
+      <div id="paso-contacto" class="hidden">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Paso 2 de 2: Entrega de reporte</span>
+          <button type="button" onclick="volverAPasoPropiedad()" class="text-xs text-slate-400 hover:text-slate-600 underline">&larr; Modificar datos</button>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 text-xs text-blue-900 leading-relaxed">
+          <i class="fa-solid fa-calculator text-blue-600 mr-1"></i> <b>¡Análisis de mercado listo!</b> Ingresa tus datos para desbloquear el rango de valor y la propiedad comparable de tu colonia.
+        </div>
+
+        <form id="form-contacto" class="space-y-4" onsubmit="enviarValuacion(event)">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Tu Nombre Completo *</label>
+            <input type="text" id="nombre" required placeholder="Ej. Juan Pérez" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">WhatsApp / Teléfono *</label>
+            <input type="tel" id="whatsapp" required placeholder="Ej. 662 123 4567" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">¿Qué tan pronto te gustaría comercializarla?</label>
+            <select id="plazo" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+              <option value="Menos de 1 mes">En menos de 1 mes (Urgente)</option>
+              <option value="1 a 3 meses" selected>En los próximos 1 a 3 meses</option>
+              <option value="3 a 6 meses">De 3 a 6 meses</option>
+              <option value="Solo curiosidad">Solo quiero saber el valor por curiosidad</option>
+            </select>
+          </div>
+
+          <button type="submit" id="btn-calcular" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition duration-200 text-base shadow-lg shadow-emerald-600/20 mt-2">
+            Ver Mi Rango y Propiedades Comparables 📊
+          </button>
+        </form>
+      </div>
+
+      <!-- ESTADO DE CARGA -->
+      <div id="cargando" class="hidden py-12 text-center">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent mb-4"></div>
+        <p class="text-sm font-bold text-slate-800">Analizando el mercado inmobiliario en la colonia...</p>
+        <p class="text-xs text-slate-500 mt-1">Evaluando equipamiento reportado y buscando comparables similares.</p>
+      </div>
+
+      <!-- RESULTADO -->
+      <div id="resultado" class="hidden">
+        <div class="text-center mb-6">
+          <span class="inline-flex items-center justify-center w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full mb-3 text-2xl">
+            <i class="fa-solid fa-check"></i>
+          </span>
+          <h2 class="text-2xl font-black text-slate-900">Rango de Valor Estimado</h2>
+          <p class="text-xs text-slate-500 mt-1" id="subtitulo-res"></p>
+        </div>
+
+        <!-- Rango de Valor y Aviso de Revisión Automática -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 text-center mb-6">
+          <span class="text-xs font-semibold text-blue-700 uppercase tracking-wider block mb-1">Rango preliminar sugerido</span>
+          <div class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center justify-center space-x-2">
+            <span id="res-min" class="text-blue-600"></span>
+            <span class="text-slate-400 font-normal text-xl">-</span>
+            <span id="res-max" class="text-blue-700"></span>
+          </div>
+
+          <!-- LEYENDA CLARA DE REVISIÓN AUTOMÁTICA -->
+          <div class="mt-4 pt-3 border-t border-blue-200/60 bg-white/70 rounded-xl p-3 text-left sm:text-center">
+            <p class="text-xs text-slate-700 leading-relaxed">
+              <i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1.5"></i>
+              <b>Nota importante:</b> Este rango está basado en una <b>revisión automática algorítmica</b>, por lo que el precio final real de tu inmueble puede variar según su conservación, acabados y detalles específicos. Te sugerimos <b>confirmar el valor exacto con el asesor</b>.
+            </p>
+          </div>
+        </div>
+
+        <!-- TARJETA DEL COMPARABLE EN LA ZONA -->
+        <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-5 mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-amber-800 uppercase tracking-wide flex items-center">
+              <i class="fa-solid fa-scale-balanced mr-1.5 text-amber-600"></i> Referencia Real en tu Colonia
+            </span>
+            <span id="comp-precio" class="text-xs font-black bg-amber-200/80 text-amber-900 py-1 px-2.5 rounded-lg"></span>
+          </div>
+          <h4 id="comp-titulo" class="text-sm font-bold text-slate-900 mb-1"></h4>
+          <div class="text-xs text-slate-600 space-y-1 mb-2">
+            <p><i class="fa-solid fa-ruler-combined text-amber-700 mr-1"></i> <span id="comp-metros"></span></p>
+            <p><i class="fa-solid fa-bed text-amber-700 mr-1"></i> <span id="comp-distribucion"></span></p>
+            <p><i class="fa-solid fa-circle-info text-amber-700 mr-1"></i> <span id="comp-detalles"></span></p>
+          </div>
+        </div>
+
+        <!-- Criterio de mercado -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6">
+          <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wide mb-1 flex items-center">
+            <i class="fa-solid fa-chart-line text-blue-600 mr-1.5"></i> Criterio de Zona y Equipamiento
+          </h4>
+          <p id="res-analisis" class="text-xs text-slate-600 leading-relaxed"></p>
+        </div>
+
+        <!-- LLAMADO A LA ACCIÓN CONTEXTUALIZADO -->
+        <div class="border-t border-slate-100 pt-6 text-center">
+          <p class="text-xs text-slate-600 mb-3">
+            Para validar el precio exacto de cierre o publicación, solicita tu revisión sin costo:
+          </p>
+          <a id="btn-whatsapp-asesor" target="_blank" href="#" class="inline-flex items-center justify-center w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition duration-200 text-sm">
+            <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Confirmar Precio Real con el Asesor (Sin costo)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="py-6 text-center text-xs text-slate-400">
+    &copy; 2026 Valuador Inmobiliario - Hermosillo, Sonora. Estimaciones preliminares sujetas a visita física.
+  </footer>
+
+  <script>
+    const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxEa7-8QgnxahpLCCfyZ1mq3WfNMpRkz_vbTgEXuBDgKSkaJ8HpH-Lhu-iNJF6ctSLpqg/exec";
+    const WHATSAPP_ASESOR = "6622057331";
+
+    // CATÁLOGO EXTRAÍDO DE COLONIAS.XLSX[cite: 7]
+    const CATALOGO_COLONIAS = [
+      "15 \"A\"", "20 Noviembre Cuatro", "20 de Noviembre", "22 de Septiembre", "26 de Octubre", "4 de Marzo", "5 de Mayo", "AMSA (TIASA)", 
+      "Acacia Residencial", "Acuícola Genitech", "Acuícola Polo", "Acuícola Selecta", "Acuícola Tastiota", "Adolfo López Mateos", 
+      "Adolfo de la Huerta", "Adán López", "Agaves Residencial", "Agrobal 6", "Agroindustrial de Sonora", "Agropecuaria Blanca Julia", 
+      "Agropecuaria Jam", "Agropecuaria Punta Baja (Casa Blanca)", "Agropecuaria Rosa", "Agropecuaria Sonorense", "Agroquímico JAM", 
+      "Agroquímicos JAM", "Agroval Cinco (Santa Martha)", "Agroval Dos (Santa Martha Dos)", "Agrícola Doña Lola (Las Playitas)", 
+      "Agrícola Martha", "Agrícola Oremor (Santa Patricia)", "Agua Blanca", "Agua Caliente", "Agualurca", "Aguayo Porchas", 
+      "Akiwiki", "Alameda", "Albaterra", "Alberto Bustamante", "Alberto Guzmán", "Alborada", "Alcalá Residencial", "Alcatraz", 
+      "Alcinos", "Alcázar", "Alegranza Residencial", "Alejandro Carrillo Marcor", "Alejandro Córdova (El Alamito)", "Alejandro Gutiérrez", 
+      "Alejandro Rival Sánchez", "Alejandría Dos", "Alejandría Uno", "Alemania", "Alemania Dos", "Alondras Residencial", 
+      "Alta California Residencial", "Alta Firenze Norte", "Alta Firenze Residencial", "Alta Riviera Residencial", "Altaleza", 
+      "Altamira", "Altares", "Altares II", "Altares Rancho Grande", "Altares Sección Dorada", "Altaria Norte", "Altaria Residencial", 
+      "Alto Valle", "Alto Verde (Río Blanco)", "Altos de Aragón", "Altozano", "Alvento", "Ampliación Ladrilleras", "América", 
+      "Ana Alicia Romero", "Ananda", "Andalucía Residencial", "Andares", "Andrés Beltrán", "Antara Residencial", "Antonio Méndez", 
+      "Antonio Narro (El Perico)", "Antonio Parada Cano", "Apolo", "Aqua Nova", "Aquiles Serdán (Santa Inés)", "Arandas Residencial", 
+      "Aranjuez Residencial", "Arboledas", "Arcadia", "Arco Iris", "Arcángel Residencial", "Armando Ramírez", "Artesanos", 
+      "Arturo Wereca", "Arándanos Residencial", "Asturias Residencial", "Atardeceres", "Azores Residencial", "Año Nuevo", "Bachoco", 
+      "Bahía de Kino Centro", "Balderrama", "Banus", "Barcelona Residencial", "Barlovento", "Basalto", "Basano (Santa Lourdes)", 
+      "Basopa", "Basopa (San Alfonso)", "Bazano", "Belcanto", "Bella Vista", "Bella Vista (El Toro)", "Bellavista", "Benei Residencial", 
+      "Benevento", "Benito Félix", "Benito Juárez", "Benito Juárez (Sección Tres)", "Benito Juárez (Sector Cinco)", "Bervano", 
+      "Bicentenario Residencial", "Bilbao", "Block Carolina", "Block Mexicano de Tacupeto", "Bonanza Residencial", "Bonaterra Residencial", 
+      "Bosco Residencial", "Brianzas", "Buena Vista", "Buena Vista [Fraccionamiento Campestre]", "Buenaventura", "Buenavista", 
+      "Buenos Aires", "Bugambilia", "Bugambilias", "CEFERESO 11 CPS Sonora", "CFE Central Ciclo Combinado Hermosillo", "CIANO", 
+      "CNOP", "Café Combate", "Cajeme", "Calandria", "California", "Calle Trece", "Camino Real", "Camino Real Norte", "Camino del Seri", 
+      "Campanario", "Campestre Bermudas [Manuel Ruiz]", "Campestre Casa Blanca", "Campestre Cetáceas", "Campestre Hacienda la Labor", 
+      "Campestre Nueva Ilusión", "Campestre Residencial", "Campestre San Isidro", "Campestre el Mezquite", "Campestre el Potrillo", 
+      "Campestre la Colmena", "Campestre la Yesca", "Campestre las Granjas", "Campestres las Palmas", "Campillo (Santa Rosalía)", 
+      "Campito la Herradura", "Campo Abierto (Luis Medina Ramonet)", "Campo Dolores", "Campo Don Roberto", "Campo Dulce (El Sahueso)", 
+      "Campo Gassa (Asociación Ganadera de Alimentos)", "Campo Grande (Viñedos Alta)", "Campo Grande Número Dos", "Campo Grande Residencial", 
+      "Campo LUFATE", "Campo La Noria [Leyva Espinoza]", "Campo Laura", "Campo Luisa", "Campo Michelle", "Campo Nuevo", 
+      "Campo Nuevo (El Capitán)", "Campo San Luis", "Campo Santa Teresita", "Campo Sergio López Luna", "Campo el Grande", 
+      "Campo el Águila", "Campo la Valiana", "Campo las Lomitas", "Cantabria", "Canteras Residencial", "Capadocia", "Caperuzo", 
+      "Capistrano Residencial", "Carlos Zapata Vela", "Carlos de León Fernández (Vivero)", "Carlota Amalia", "Carmen Dolores", 
+      "Carmen Serdán", "Carnavalito", "Carolina", "Casa Blanca", "Casa Bonita", "Casa Bonita II", "Casa Grande Residencial I", 
+      "Casa Grande Residencial II", "Casa Grande Residencial III", "Casa Linda", "Casa Real", "Casa de Alto (Ramón Preciado)", 
+      "Casalta Residencial", "Casas Grandes Dos (Pozo Número Dos)", "Caserío Solar", "Castelina", "Castello Residencial", 
+      "Catalinas Residencial", "Catania Residencial", "Cataviña Residencial", "Cañada de los Negros", "Cementos Holcim Apasco [Cementera]", 
+      "Centenario", "Central de Abastos", "Centro de Educación y Capacitación el Estero", "Centro de Readaptación Social Dos", 
+      "Cerrada Coronado", "Cerrada Cucurpe", "Cerrada Diamante", "Cerrada Norwalk", "Cerrada Pimas", "Cerrada de Minas", 
+      "Cerrada de la Capilla", "Cerrada del Carmen", "Cerrada el Encanto", "Cerrada la Caridad", "Cerro Apache", "Cerro Colorado", 
+      "Cerro Prieto", "Cerro de la Campana", "Cerro de la Cruz", "Cerro de la Virgen", "Cerro las Hormigas (Jesús Mario)", 
+      "Chano Quintero", "Chapacolor", "Chapala (El Pocito)", "Charro Granillo", "Chaveco", "Chichí López", "Chico Parra", 
+      "Chico Román", "Chino Abelardo", "Choyal", "Chula Vista", "Chula Vista (Campestre Jiménez)", "Chulavista Dos", 
+      "Clara Eloísa Othón (El Alamito)", "Club Campestre Río Azul", "Club Deportivo Hermosillense", "Club de Caza Tirocapes", 
+      "Club de Tiro y Caza Mazocahui", "Colegio Irlandés", "Colegio de Bachilleres", "Colina Blanca", "Colinas", "Colinas de San Javier", 
+      "Colinas del Molino (Campestre Jiménez)", "Colinas del Sur", "Coloso", "Comarcas de Andalucía", "Comercial Cedros", 
+      "Compa Dos", "Compa Uno", "Compostela Residencial", "Concordia Armonia", "Concordia Residencial", "Condominio Hacienda Real", 
+      "Condominio San Pablo", "Conjunto Arizona", "Conquistadores", "Constitución", "Constructora Elga", "Coorit", "Corceles Residencial", 
+      "Corocis (Fumicus)", "Coronado", "Coronado Residencial", "Corrales San José", "Corrales San Juanero", "Corsica Residencial", 
+      "Cortijo Periodista", "Costa Rica", "Costa del Sol", "Country Club", "Country Club Residencial", "Covadonga", "Crisosa (Cribadora de Sonora)", 
+      "Cristóbal Colón", "Crucero (Cuatro y Veintiséis)", "Crucero Doce y Veintiséis", "Cruz Gálvez", "Cruz Gálvez (El Caporal)", 
+      "Cuadra América", "Cuadra Tecoripa", "Cuadra las Quintas", "Cuadra los Locos", "Cuartel Pitic", "Cuartel Zona", 
+      "Cuatro (Lázaro Cárdenas)", "Cuatro Olivos", "Cuatro de Octubre", "Cuauhtémoc", "Cucurpe II", "Cumbres Residencial", 
+      "Cumbres Residencial III", "Cumis (Santa Lucía)", "Cárdeno Residencial", "Cócorit Uno", "Córdoba Residencial", "DICTUS", 
+      "Danny", "De Rendón", "De la Cruz", "Del Bosque", "Del Carmen (Las Islas)", "Del Pedregal Privadas Residenciales", "Del Razo", 
+      "Departamento de Agricultura y Ganadería", "Desarrollo", "Desarrollo (Pericos Dos)", "Desarrollo Industrial Victoria 5.5", 
+      "Diana", "Dinámica del Pacífico", "Dinámica del Pacífico (Santa Fe)", "Dios Está Contigo (DEC los Pinos)", "Distribuciones Kino", 
+      "Dolores", "Don Enrique", "Don Luis", "Don Miguel (Florida)", "Don Nazario", "Dos Triángulos", "Dunas", "Dunas II", 
+      "Dunas de Kino", "Durango", "Ejido de Villa de Seris", "Ejido el Buey", "El Abanico (Santa Lucía)", "El Abra", "El Agachado", 
+      "El Alamito", "El Alamito (Campo el Chale)", "El Alamito Buenavista (El Tronconal)", "El Alamito [Fundidora]", "El Alamo Residencial", 
+      "El Albañil", "El Apache", "El Apenitas", "El Arenal", "El Arenoso", "El Azahar", "El Bachatal", "El Baiburín", "El Bajío", 
+      "El Bajío (Bojórquez)", "El Baluarte", "El Barcelonet", "El Barzón", "El Batepi", "El Beduino", "El Bienestar", "El Bofito", 
+      "El Bohemio", "El Bola", "El Bura", "El Cable (Santa Mercedes)", "El Cachoral", "El Cactus", "El Caculla", "El Cajón Verde", 
+      "El Campito", "El Campito Montaño", "El Cantón", "El Cardonal", "El Carmen", "El Carrizo", "El Carrizo (San Isidro)", 
+      "El Cebollón [Campestre]", "El Centavito", "El Cerro", "El Chalate", "El Chamizal", "El Chamizal (Salsipuedes)", "El Chanate", 
+      "El Chaparral", "El Chaparral (Invasión)", "El Chapo", "El Chilicote", "El Chinalito", "El Chino", "El Chipilón", "El Chivimbo", 
+      "El Cholay (Santa María)", "El Choyudo (Los Japoneses)", "El Cimarrón", "El Cinco (El Refugio)", "El Cincuenta", "El Colorado", 
+      "El Conquistador Residencial", "El Consejo", "El Consuelo", "El Cortijo", "El Cortijo UNISON", "El Coyote", "El Crucero (Cero Norte)", 
+      "El Crucero (Cuchilla la Pagasa)", "El Crucero (La Treinta y Seis Sur)", "El Cuatro", "El Desengaño", "El Diamante", 
+      "El Diamante Dos", "El Diamante Tres", "El Dieciséis", "El Divisadero", "El Dorado", "El Egipto", "El Electrón", 
+      "El Eléctrico [Campo]", "El Encanto", "El Esfuerzo", "El Esplendor", "El Europa", "El Fundador", "El Futuro", "El Gameño", 
+      "El Garambullo", "El Gatal", "El Gato", "El Gavilán", "El Gorriño", "El Gramal", "El Gran Chaparral II", "El Guamuchilar (Centrito)", 
+      "El Guayabito", "El Guayparín (San Carlos)", "El Huarache", "El Jabalí", "El Jacalito", "El Japonés", "El Jarrito", 
+      "El Jecotal", "El Jito", "El Jojobal", "El Laberinto", "El Latifundio", "El Llanito", "El Llano", "El Lucero", "El Machete", 
+      "El Magali", "El Maguachi", "El Mahuachi", "El Malecón", "El Manudo", "El Mariachi", "El Mauto", "El Mayo", "El Memucho", 
+      "El Mezquital del Oro (El Águila)", "El Mezquite", "El Milagro", "El Mirador (Invasión)", "El Mocloy", "El Modelo", 
+      "El Mohino", "El Moisés", "El Molino", "El Muertito", "El Nainari", "El Nogal", "El Nomo", "El Nuevo Tejabán", "El Ocotillo", 
+      "El Olivar", "El Orégano", "El Otro Lado", "El Palacio de Wayne", "El Palo Fierro", "El Palo Verdal", "El Palomar", 
+      "El Papalote", "El Paraíso", "El Pañuelito", "El Pedernal Tres", "El Pegoste", "El Pepache (Francisco Quiroga)", "El Perú (Patrocipes)", 
+      "El Piave", "El Pilar", "El Pinal (El Alamito)", "El Pinito", "El Pocito", "El Pocito (Orebalma)", "El Porvenir", 
+      "El Potrerito (El Potrero de San Francisco)", "El Potrero", "El Pozo", "El Pozo Nuevo", "El Progreso", "El Pueblito", 
+      "El Puerto", "El Puerto de Posada", "El Quetzal (El Cholay)", "El Ranchito", "El Ranchito (Alejandro Camou)", "El Rancho", 
+      "El Real del Catorce", "El Realengo", "El Realito", "El Recobeco", "El Recodo", "El Refugio", "El Repecho", "El Repecho (Javier López Molina)", 
+      "El Represito", "El Represito (Heriberto Peralta)", "El Represito del Padre", "El Represo", "El Resbaladero", "El Resplandor", 
+      "El Retanque", "El Retiro", "El Retiro (Sección Oasis)", "El Rey", "El Rodeo", "El Rojo (El 57)", "El Rosario", "El Río", 
+      "El Sacrificio", "El Sacrificio (Televisa)", "El Sagrado (La Victoria)", "El Sahuaro", "El Sahueso", "El Salto", "El Sapo", 
+      "El Saucito", "El Saucito 2", "El Saucito de Enmedio", "El Sauzaba", "El Secreto", "El Sergio", "El Seri", "El Socorro", 
+      "El Sonot", "El Taconazo", "El Tatay (Santa Martha)", "El Tazajal", "El Tecolote", "El Tejabán", "El Tejabán (Ignacio Careaga)", 
+      "El Temporal", "El Tepachi", "El Terreno", "El Tesal", "El Tijerito", "El Tinaco (Campo de Gómez)", "El Tobozal (El Infiernito)", 
+      "El Tojungo Dos", "El Tojungo Sur", "El Tope", "El Tren Grande", "El Triunfo", "El Tucson", "El Veinte (La Peaña)", 
+      "El Voltiadero", "El Yucateco 6", "El Yucateco Uno", "El Yuguito", "El Zacatón", "El Zanjón", "El Álamo", "El Álamo [Fraccionamiento Campestre]", 
+      "Electro Sistemas Mexicanos", "Elmer García", "Elías Córdova", "Elías Ortega", "Emiliano Zapata", "Empaque María del Carmen", 
+      "Empaque San Enrique", "Engorda Campo Nuevo", "Equipos y Explosivos de Sonora", "Escuadrón Doscientos Uno", "Establo Dolisa", 
+      "Establo San Marcos", "Establo Santo Niño", "Estación Zamora", "Estero Santa Cruz", "Europa Número Dos", "Eusebio Kino", 
+      "FONAPO", "FOVISSSTE", "Familia Huerta", "Familia Madrid", "Felizardo Castro", "Fernando Molina Lord", "Ferrocarrilera", 
+      "Finca Santa María", "Firenze Residencial", "Flamingos", "Florenza Plus", "Florenza Residencial", "Floresta", "Floresta Villa Almendras", 
+      "Floresta Villa Ceiba", "Floresta Villa Cipreces", "Floresta Villa Ciruelos", "Floresta Villa Fresnos", "Florida Dos", 
+      "Florida Tres", "Francisco Aispuro (El Apache)", "Francisco Bustamante", "Francisco Eusebio Kino (Colonia Kino)", 
+      "Francisco Eusebio Kino ISSSTESON", "Francisco I Madero", "Francisco Javier Fiel", "Francisco Romero", "Francisco Villa", 
+      "Fructuoso Méndez", "Fuente de Piedra", "Fuentes del Centenario", "Fuentes del Mezquital", "Gala I", "Gala II", "Gala III", 
+      "Ganadera Contreras", "Ganadera Gapa", "Genitch", "Genova Residencial", "Gilberto Durazo Gaxiola", "Gimports de México", 
+      "Gran Beroa Residencial", "Granada", "Grande", "Grupo Industrial Bujanda", "Grúas Cajeme", "Guadalupe", "Guadalupe Germán", 
+      "Guadalupe Victoria", "Guadalupe de Jesús", "Guayacán", "Guerrero", "H Ayuntamiento", "Hacienda Residencial Condominal", 
+      "Hacienda de la Flor", "Hacienda de los Valencia", "Hacienda del Sol", "Hacienda los Alcatraces", "Hacienda los Lirios", 
+      "Hacienda los Tesoros", "Haciendas Residencial", "Haciendas del Sur", "Heberto Castillo", "Helios", "Hema-Novina", 
+      "Hermanos Serdán", "Hermosa Provincia", "Hermosillo", "Hermosillo (General Ignacio Pesqueira García)", "Hermosillo Centro", 
+      "Hipódromo de Hermosillo", "Hotel Spa Temazcalli Eco", "Humberto Gutiérrez Corona", "Héctor Ruiz", "Hércules Uno", 
+      "INFONAVIT", "ISSSTE Federal", "ISSSTESON Centenario", "ISSSTESON Lux", "ISSSTESON Norte", "Ibiza Residencial", 
+      "Instituto de Tratamiento y Aplicación para Ad", "Insurgentes", "Internacional", "Isdamar", "Isidro Castellano", "Ixpalia", 
+      "Jacalito (Kilómetro Cuarenta y Ocho)", "Jacinto López", "Jacinto López (La Galera)", "Jacquelynn", "Janneth", "Jardines", 
+      "Jardines de Mónaco", "Jardines del Paraíso", "Jardín Real Residencial", "Jauja", "Jauri", "Jerez del Valle", "Jesús Castellanos", 
+      "Jesús García", "Jesús García (La Pozura)", "Jesús Ramírez (El Alamito)", "Jorge Camou", "Jorge Rosales", "Jorge Valdéz Muñoz", 
+      "Josefina Dos", "José Arturo Vega", "José Esparza Rivera", "José Jesús Corrales", "José María Morelos y Pavón", "José Parra", 
+      "Joyas de Kino", "Juan Barrera Navarro", "Juan Luis", "Juan Luis Uno", "Juan Manuel Bracamontes", "Juan Silvestre", 
+      "Kilowatt", "Kilómetro Cuarenta y Cuatro", "Kilómetro Treinta y Seis (El Porvenir)", "Kinetec", "Kino", "Kino Bay Estates", 
+      "Kino Nuevo", "Kowi (Santa Isabel)", "Kyo Upday", "La Antorcha Campesina", "La Atlántida", "La Aurora", "La Bachata", 
+      "La Base (Los Hoyos)", "La Bonita", "La Brea", "La Breita (Santa Amelia)", "La Bura", "La Campana", "La Campiña", "La Cana", 
+      "La Candelaria", "La Capilla", "La Caridad", "La Casita", "La Casona", "La Cercada", "La Chacra", "La Chicharra", 
+      "La Chinapita", "La Chineña", "La Chinita Tres (Campestre Jiménez)", "La Chira", "La Choya", "La Choya II Sección", 
+      "La Chueca", "La Colmena (Pozo Cuatro) [Huerta]", "La Coruba", "La Coruña Residencial", "La Coruña Residencial Almar", 
+      "La Coruña Residencial Portonovo", "La Coteña", "La Coyota (La Coyotita)", "La Coyotita", "La Cruz", "La Cuesta (Pozo Dos) [Viñedo]", 
+      "La Cuesta [Engorda]", "La Cuesta [Viñedo]", "La Cuichi (Pelícano)", "La Encantada Privada Alebrijes", "La Encantada Privada Azulejos", 
+      "La Encantada Privada Leyendas", "La Encantada Privada Tesoros", "La Escondida", "La Escondida (Víctor Leyva)", "La Escopeta (Los Guayacanes)", 
+      "La Esperanza", "La Esperanza (René Sicre)", "La Estación Dessens", "La Estrella", "La Finca", "La Florida", "La Florida [viñedo]", 
+      "La Fortuna", "La Franja", "La Fuente de la Juventud", "La Galera", "La Gallinita", "La Garita", "La Garulla", "La Gaviota", 
+      "La Genoveva", "La Gravera", "La Habana Número Dos", "La Habana Número Uno", "La Habana Tres", "La Habana [Establo]", 
+      "La Habana [Porcícola y Avícola]", "La Hediondilla", "La Herradura", "La Herradura [Campestre]", "La Horqueta", "La Huerta", 
+      "La India", "La Infamia", "La Inmaculada", "La Inés", "La Jolla Villa Turquesa", "La Jolla Villa de las Esmeraldas", 
+      "La Jolla Villa de las Perlas", "La Jolla Villa de los Diamantes", "La Jolla Villa de los Zafiros", "La Joya", "La Junta", 
+      "La Labor", "La Laguna", "La Laguna (Seis de Marzo)", "La Lengueta", "La Loma", "La Loma (La Lomita)", "La Manga", 
+      "La Matanza", "La Mesita de los Cardenales (Roberto Cruz T)", "La Metalera", "La Milagrosa", "La Milagrosa II", 
+      "La Milagrosa [Engorda]", "La Milpita", "La Mina (Retiros Espirituales)", "La Mirada Residencial", "La Misión", "La Miura", 
+      "La Mocha (Padre Kino)", "La Mora", "La Morena Dos", "La Mosa (El Campo del Capi)", "La Mosca", "La Máquina", "La Navidad", 
+      "La Nopalera", "La Noria", "La Orejana", "La Palapa", "La Palma", "La Palma del Agro", "La Paloma", "La Paloma Residencial I", 
+      "La Paloma Residencial II", "La Paloma VIP", "La Parcela [José Jesús Miramontes]", "La Peaña", "La Peaña Nueva", 
+      "La Perseverancia (Los Fumicos)", "La Pimienta", "La Pintada", "La Pintada [Restaurante]", "La Pirinola", "La Pitahaya", 
+      "La Polka", "La Pomona", "La Ponderosa", "La Ponderosa (Los Buros)", "La Ponderosa [Porcicola]", "La Postera", "La Poza", 
+      "La Poza (Bloquera)", "La Pradera", "La Primavera", "La Providencia", "La Puntada", "La Quinta", "La Reforma", "La Resolana", 
+      "La Reyna", "La Rinconada (Los Boris)", "La Rioja", "La Rioja Norte", "La Rosillita del Chino", "La Salinera", "La Sierrita", 
+      "La Sierrita de López", "La Tembladera de Abajo", "La Tezota", "La Tijera", "La Tinaja", "La Tinajita", "La Tortuga", 
+      "La Trácala", "La Vaca Colorada", "La Valenciana (La Peaña)", "La Valenciana Dos", "La Valenciana Uno [Huerta]", "La Ventana", 
+      "La Ventanita", "La Verbena", "La Verde", "La Victoria", "La Victoria (Francisco Quiroga) [Establo]", "La Victoria (La Crinolina) [Corrales]", 
+      "La Victoria Almacenes", "La Yaqui", "La Yesca", "La Yeya", "La Yuta", "Larvas Génesis", "Las 3 B", "Las Abejas", 
+      "Las Albercas [Campestre]", "Las Amapolas", "Las Barajitas (San Juan)", "Las Bebelamas", "Las Bolsas", "Las Brechas", 
+      "Las Cadenas", "Las Candelarias", "Las Carretas", "Las Ceibas", "Las Conchas (Tortillería)", "Las Cruces", "Las Cuevas", 
+      "Las Cuevitas", "Las Diligencias", "Las Dos Marías", "Las Empanadas", "Las Flores", "Las Fuentes", "Las Glorias", 
+      "Las Granjas", "Las Isabeles", "Las Isabeles ( José Castellano)", "Las Jaibas", "Las Liebres", "Las Lomas", 
+      "Las Lomas Privada del Bosque", "Las Lomas Privada las Lomas", "Las Lomas Real del Parque", "Las Lomas Sección Bonita", 
+      "Las Lomas Sección Castaños", "Las Lomas Sección el Paraíso", "Las Lomas Sección los Manzanos", "Las Lomas de Cortés", 
+      "Las Lomas del Mirador", "Las Lomas del Pitic", "Las Lomas del Sol", "Las Lomas del Sur", "Las Merceditas (Agronuts)", 
+      "Las Milpas", "Las Minitas", "Las Moras", "Las Norias", "Las Palmas", "Las Palmas (Víctor Palma)", "Las Palmas [Viñedo]", 
+      "Las Palmitas", "Las Palomas", "Las Peredas", "Las Peñas", "Las Pilas", "Las Placitas", "Las Plazas", "Las Praderas", 
+      "Las Provincias", "Las Quintas", "Las Riberas", "Las Teresitas (1333)", "Las Tomasas", "Las Torres", "Las Tortolitas", 
+      "Las Tres Marías", "Las Tres Reynas", "Las Veredas", "Las Villas", "Las Villas del Nogal", "Las Vistas", "Las Víboras", 
+      "Las Vírgenes Cinco", "Las Vírgenes Número Uno", "Las Vírgenes Tres", "Las Zayas", "Latifundio San Jorge", 
+      "Laura Alicia Frías de López Nogales", "Laura Bella Dos", "Laura Bella Uno", "Laureles", "Leobardo Miranda", "Leopoldo Sánchez", 
+      "Ley 57", "Libertad", "Licenciado Ignacio Ramírez y su anexo San Pedro", "Lino Martínez", "Lista Blanca", "Llano Verde", 
+      "Loma Linda", "Loma Prieta", "Lomas Altas", "Lomas Pitic", "Lomas de Kino", "Lomas de Linda Vista", "Lomas de Madrid", 
+      "Lomas de Reforma", "Lomas del Norte", "Loreto", "Los Aguilera", "Los Alamitos", "Los Altos Residencial", "Los Apaches", 
+      "Los Arcos", "Los Arroyos", "Los Benavides", "Los Camichines [Agropecuaria]", "Los Canarios", "Los Castillo", "Los Chinos", 
+      "Los Chirriones", "Los Choros (Predio Veintiuno)", "Los Cochitos (Los Cochitos UNISON)", "Los Compadres", 
+      "Los Compadres (Cinco Locos)", "Los Copales", "Los Corralitos", "Los Coyotes", "Los Cuates", "Los Cuatitos (Siberia Tres)", 
+      "Los Cuatro (Palermo)", "Los Cúmaros (Establo San Francisco)", "Los Dos Amigos (Las Calvas de Arriba)", "Los Dos Hermanos", 
+      "Los Dos Ríos", "Los Girasoles", "Los Guajolotes", "Los Hoyos", "Los Huicos", "Los Igualados", "Los Ingenieros", 
+      "Los Janos Dos", "Los Janos Uno", "Los Jardines", "Los Jitos (El Zancudo)", "Los Juancitos", "Los Lagos", "Los Lareños (La Iguana)", 
+      "Los Laureles", "Los Manantiales", "Los Mexicanos", "Los Mezquites", "Los Milagros", "Los Millán", "Los Morales", "Los Moros", 
+      "Los Naranjos", "Los Nogales", "Los Olivos", "Los Olivos (Olivos)", "Los Pachecos", "Los Palos Rosados", "Los Pavos (La Esperanza)", 
+      "Los Pañuelos", "Los Pericos (El Cholay)", "Los Pinitos", "Los Pinos (Adolfo López Mateos)", "Los Pinos Residencial", 
+      "Los Pocitos", "Los Poetas", "Los Polvorines", "Los Portales", "Los Pozos", "Los Rosales", "Los Sabinos", "Los Santos Residencial", 
+      "Los Sauces", "Los Talayotes", "Los Temporales", "Los Tulipanes", "Los Vados", "Los Viñedos", "Los Álamos", "Los Ángeles", 
+      "Lotes Campestres CESUES", "Luis Donaldo Colosio", "Luis Encinas", "Lupe Romero", "Lux", "Lágrimas Ranch", "Lázaro", 
+      "Lázaro Cárdenas", "Lázaro Peraza", "López", "López Portillo", "Machi López", "Maclasa (CAMSA)", "Mada", "Madero", 
+      "Mallorca Residencial", "Manantial de Camoú [Campestre]", "Manuel Gómez Morín", "Manuel J Clouthier", "Manuel Samaniego", 
+      "Manuel Sánchez", "Manuel Ávila Camacho", "Manuel Ávila Saavedra", "Maquilas y Materiales Prensados", "Mar de Plata", 
+      "Margaritas Olivos", "Marlén", "Marsella Residencial", "María Amparo [Agrícola]", "María Belem", "María del Carmen", 
+      "Masocoba", "Maximiliano R López", "Maya", "Mazocari [Agropecuaria]", "Mechudo [San Agustín]", "Mediterráneo", 
+      "Mediterráneo Residencial", "Mesa del Seri", "Mesaverde", "Metrocentro", "Mezquital del Oro", "Miguel Alemán (El Tres)", 
+      "Miguel Alemán (La Doce) Centro", "Miguel Alemán (Santa Cruz)", "Miguel Hidalgo", "Miguel Lerdo de Tejada (Valparaíso)", 
+      "Miguel Valencia", "Miguel Ángel Jiménez", "Milagro de Fátima", "Milpa Baja", "Milán Residencial", "Mineros de Pilares", 
+      "Miniparque Industrial", "Mirabal", "Mirasoles", "Misioneros", "Misión", "Misión San Ignacio", "Misión San Jerónimo", 
+      "Misión de Andalucía Residencial", "Misión de San José", "Misión de los Lirios", "Misión del Arco", "Misión del Real", 
+      "Misión del Sol", "Moctezuma", "Modelo", "Molino de Camou (San Isidro)", "Monarca Residencial", "Monet", "Monserrat 2", 
+      "Montalbán Residencial", "Montana", "Monte Alto", "Monte de Calabria Residencial", "Montebello Residencial", "Montecarlo", 
+      "Montecarlo Residencial", "Montecasino", "Montecristo", "Montereal", "Monteregio Residencial", "Montero", 
+      "Monterosa Hábitat Residencial", "Monterrey", "Montesinos", "Montserrat", "Morgán", "Murano Residencial", "Málaga", 
+      "Mártires de Cananea", "Mónaco Privadas Residenciales", "NCPE Ignacio Zaragoza (El Chicotazo)", "Nacameri", "Narciso Mendoza", 
+      "Natura", "Navarra", "Navolato", "Nazareo Residencial", "Nazaret (La Ponderosa)", "Nazario Ortiz Garza (Lourdes)", "Nigromante", 
+      "Niños Heroés", "Nochitongo", "Nopales María Dolores", "Norababi", "Norberto Ortega", "Noriega", "Nueva Castilla", 
+      "Nueva España", "Nueva Esperanza", "Nueva Europa", "Nueva Galicia", "Nueva Ilusión", "Nueva Palmira Residencial", 
+      "Nueva Victoria", "Nueva York", "Nuevo", "Nuevo Desierto", "Nuevo Guadalupe de Jesús (San Blas)", "Nuevo Hermosillo", 
+      "Nuevo Horizonte", "Nuevo Sahuaro", "Nuevo San Miguel", "Nuevo Suaqui", "Nuevo Triunfo", "Nuevo Yaquis Desterrados", 
+      "Nápoles", "Oasis Lantana", "Oasis Palmeira", "Oasis Santa Fe", "Oasis Solana", "Oasis Solera", "Oasis de Kino", 
+      "Oasis del Sol", "Obispos Residencial", "Obispos Residencial II", "Ocotillo", "Oficinas Federales", "Olivar", "Olivares", 
+      "Opatas", "Orebalma", "Oviáchic", "PEMEX", "Padre Kino [Agrícola]", "Palermo Sección Ferrara", "Palermo Sección Partanna", 
+      "Palermo Sección Veneto", "Palma Dorada Residencial", "Palma Sola", "Palmar del Sol", "Palo Fierro", "Palo Verde", 
+      "Palo Verde Indeur los Olivos", "Paloma Agroindustrial", "Palos Grandes (El Mono)", "Pancho Estrada", "Paraíso", 
+      "Parcela Janeth", "Parcela de Nieves (Ramón Gálvez)", "Parque Central", "Parque Industrial", "Parque Industrial Dynatech", 
+      "Parque Industrial Dynatech Sur", "Parque Industrial Hermosillo", "Parque Industrial Labor", "Parque Industrial Lanix", 
+      "Parque Industrial Latitud", "Parque Industrial Luvira", "Parque Industrial NEPO", "Parque Industrial Pimex", 
+      "Parque Industrial Río Sonora Tetakawi", "Parque Industrial Sonora", "Parque Industrial VINSA", "Parque Industrial de Hermosillo Norte", 
+      "Parque Industrial del Desierto", "Parque Solar", "Parque Versalles", "Paseo Real Residencial", "Paseo San Ángel", 
+      "Paseo de la Colina", "Paseo de las Margaritas", "Paseo de las Misiones Residencial", "Paseo de las Palmas", "Paseo del Cid Residencial", 
+      "Paseo del Sol", "Paseos del Pedregal", "Perico Uno", "Periodista", "Perisur", "Perla Negra (Campestre Jiménez)", 
+      "Perlas de Kino", "Piamonte", "Piedra Bola (Pedregal de la Villa)", "Piedras Negras", "Pierson (Las Vírgenes Dos)", 
+      "Pilares", "Pilford", "Pilforito", "Pimentel", "Pinos Altos (Santa Bertha)", "Pitic", "Pitic Explosivos", "Placeritos", 
+      "Plan de Ayala", "Plastimarmol", "Playa Dorada", "Playas de Kino", "Plaza Grande", "Plaza Inn", "Plaza Real", 
+      "Plaza de Las Franquicias", "Plutarco Elías Calles", "Pomona Residencial", "Popular", "Porcicola Clamaral", "Porcícola Brival", 
+      "Porcícola Cuauhtémoc", "Porcícola Dolores", "Porcícola San Armando", "Porcícola Yaco", "Porfirio Corella", 
+      "Portal de Romanza Residencial", "Portal del Lago", "Portal del Pitic", "Portón del Arco", "Postería DARESA", "Poza Rica", 
+      "Pozo Loco", "Pozo Nuevo", "Pozo Nuevo (Rancho Nuevo)", "Pozo de Fátima (Fátima del Pitic)", "Pozo de Toyos", "Pozo del Negro", 
+      "Pozo del Negro Dos", "Prados de Bugambilias", "Prados del Centenario", "Prados del Sol", "Praga", "Predio Guadalupe", 
+      "Prefabricados de Concreto (PYPCO)", "Primavera", "Primero Hermosillo", "Privada Casa Blanca", "Privada Córdoba", 
+      "Privada Dalí", "Privada Mixcoac", "Privada Robles", "Privada Rosales", "Privada San Germán", "Privada Victoria", 
+      "Privada Villa del Rey", "Privada de los Azulejos", "Privadas Santa Clara", "Privadas del Bosque", "Privadas del Mirador", 
+      "Privadas del Real", "Privadas del Rey", "Privadas del Sauce", "Productos Congelados del Noroeste", "Progresista", 
+      "Proveedora de Insumos Mineros SA", "Proyecto Río Sonora", "Pueblitos Cerrada Guarijios", "Pueblitos Cerrada Kikapu", 
+      "Pueblitos Cerrada Kukapa", "Pueblitos Cerrada Papagos", "Pueblitos Sección los Álamos", "Pueblo Alegre", "Pueblo Alto Residencial", 
+      "Pueblo Bonito", "Pueblo Dorado", "Pueblo Escondido", "Pueblo Unido", "Pueblo del Oro", "Pueblo del Sol", "Pueblo del Ángel", 
+      "Puerta Esmeralda", "Puerta Grande", "Puerta Norte", "Puerta Real Residencial", "Puerta de Hierro", "Puerta del Rey", 
+      "Puerto Arturo", "Puerto Rico", "Puesta del Sol", "Punta Chueca", "Punta Tormenta (Isla del Tiburón)", "Punta de Lago", 
+      "Pénjamo", "Quinta Emilia", "Quinta Esmeralda", "Quinta Real", "Quinta la Paloma", "Quintas del Sol Residencial", 
+      "Racquet Club I Sección Sur", "Racquet Club II Sección Norte", "Ramón Morales Durazo (El Pipi)", "Ramón Trujillo (La Milpa)", 
+      "Ranchetes Santa Lucía", "Rancho Bonito Residencial", "Rancho San Ignacio", "Rancho Viejo", "Rascón Coronado [Palos Fierro]", 
+      "Real de Castilla", "Real de Minas", "Real de Montejo", "Real de Mulato", "Real de Palmas", "Real de Quiroga", 
+      "Real de Sevilla Club Residencial", "Real de Toledo Residencial", "Real de los Ojos Negros (Tláloc)", "Real del Alamito", 
+      "Real del Alamito [Fraccionamiento Campestre]", "Real del Arco", "Real del Cardo", "Real del Carmen", "Real del Cobre", 
+      "Real del Llano", "Real del Molinito [Campestre]", "Renaceres", "Renacimiento", "René Córdova", "Residencial Bretaña", 
+      "Residencial Kino", "Residencial Navarrete", "Residencial Peñasco", "Residencial Pima", "Residencial de Anza", 
+      "Residencial la Cañada", "Residencial la Cima", "Residencial la Cima II", "Residencial la Vendimia", "Retorno de la Misión", 
+      "Revolución I", "Revolución II", "Ricardo Retes", "Rinconada de Nuevo León", "Rinconada de la Cruz", "Rincón Agradable", 
+      "Rincón de Guadalupe las Avispas", "Rincón de La Herradura", "Rincón de Palmas", "Rincón del Marquez", "Rio Seco Residencial", 
+      "Rivello III", "Rivello Residencial", "Roca Roja", "Romanza Residencial", "Rosalío Chávez", "Rosalío Parra", 
+      "Rosario Ibarra de Piedra", "Rosario Perlette", "Rosella", "Rosetta", "Rosilla de Salazar", "Rubén Silva (El Alamito)", 
+      "Río Azul Kino Nuevo", "Río Azul Sección Diamante", "Río Azul Sección Rubí", "Río Azul Sección Turquesa", "Río Azul Sección Zafiro", 
+      "Río Blanco", "Río Bonito", "Río Escondido", "Río Grande Residencial", "Río Sol", "Río Sonora", "Río de Plata", 
+      "Sacramento", "Sacramento Residencial", "Sahuaripa Uno", "Sahuaro", "Sahuaro Final", "Sahuaro Indeco", "Sahuímero", 
+      "Salamanca Residencial", "Salicornia (Campito)", "Salvador Alvarado", "Salvador Quijada Jiménez (SQTECH)", "Salvatierra", 
+      "Salvatierra Residencial", "San Agustín", "San Agustín (El Toti)", "San Alberto", "San Alberto (Campo la Loma)", 
+      "San Alberto (La 31 de Octubre)", "San Alfonso", "San Alfredo", "San Alonso", "San Andrés Residencial", "San Antonio", 
+      "San Antonio (La Loma)", "San Antonio Escalante (AGROPREMIER)", "San Antonio Rendón", "San Arturo", "San Bartolo", 
+      "San Benito", "San Bernardino", "San Blas", "San Bosco", "San Carlitos", "San Carlos", "San Carlos (El Pocito)", 
+      "San Carlos (Empaque San Carlos)", "San Diego", "San Eduardo (La Isla)", "San Eduardo Dos", "San Eduardo Uno", "San Emilio", 
+      "San Enrique", "San Enrique (El Suspiro)", "San Ernesto", "San Esteban", "San Felipe", "San Fermín", "San Fernando", 
+      "San Fernando (Abigahil)", "San Fernando (La Bolsas)", "San Fernando (Norson)", "San Fernando (Nuevo Guadalupe)", 
+      "San Francisco", "San Francisco (El Sahuaral)", "San Francisco de Batuc", "San Francisquito", "San Gerardo", "San Germán", 
+      "San Gerónimo", "San Gustavo", "San Herminio (Los Ángeles)", "San Ignacio", "San Isidro", "San Isidro (Obregón)", 
+      "San Isidro Dos", "San Isidro Uno", "San Javier", "San Joaquín (Mayola)", "San Joaquín (Santa María)", "San Joel", 
+      "San Jorge", "San Jorge (Hércules)", "San José", "San José (San José de Mazón)", "San José de Gracia", "San José de las Minitas", 
+      "San José de las Palmas", "San José el Retiro", "San Juacico Bajo", "San Juan", "San Juan (Campo Dos)", "San Juan (Campo Nuevo)", 
+      "San Juan Bosco II", "San Juan de los Pinos", "San Juan del Río", "San Juan y el Pinito", "San Juanero", "San Juanico", 
+      "San Juanico [Campestre]", "San Juanico el Alto (La Victoria)", "San Judas", "San Judas Tadeo", "San Leonardo", 
+      "San Leopoldo", "San Lorenzo", "San Luis", "San Luis Rey", "San Marcial", "San Marcos", "San Marino Residencial", 
+      "San Martín", "San Martín (Alamito)", "San Martín (Cajón del Diablo)", "San Miguel", "San Nicolás", "San Nicolás (San Nicolás de Kino)", 
+      "San Pablo", "San Pascual", "San Patricio", "San Pedrito", "San Pedro", "San Pedro o el Saucito (San Pedro el Saucito)", 
+      "San Qüilmas", "San Rafael", "San Rafael [Campestre]", "San Ramón", "San Ramón (Hezaki Quihuis)", "San Roberto", 
+      "San Rodolfo", "San Salvador", "San Sebastián", "San Valentín", "San Valentín (El Pozo)", "San Vicente", "San Ángel", 
+      "Santa Amelia", "Santa Ana", "Santa Anita", "Santa Anita Residencial", "Santa Aurelia", "Santa Belem", "Santa Bárbara", 
+      "Santa Carmela", "Santa Carmen", "Santa Catalina", "Santa Cecilia", "Santa Cecilia (La Escondida)", "Santa Cecilia (Licona)", 
+      "Santa Cruz", "Santa Cruz Uno", "Santa Daniela (Santa Cecilia)", "Santa Eduwiges", "Santa Eduwiges (Radio)", "Santa Elena", 
+      "Santa Elvira", "Santa Emilia", "Santa Estela", "Santa Fe", "Santa Gertrudiz", "Santa Guadalupe", "Santa Inés", 
+      "Santa Inés Dos (Casa Grande)", "Santa Inés Dos (Los Pinitos)", "Santa Inés Dos (Pozo Nuevo)", "Santa Inés Uno (El Capitán)", 
+      "Santa Isabel", "Santa Josefina", "Santa Laura", "Santa Lucina [Campestre]", "Santa Lucía", "Santa Margarita", 
+      "Santa Margarita (El Chaparral)", "Santa Martha", "Santa Martha (Agroval Tres)", "Santa Martha Cuatro (Agroval Cuatro)", 
+      "Santa Martha Uno (El Molino)", "Santa María", "Santa María (La Treinta y Uno de Octubre)", "Santa María (Ricardo Jaime)", 
+      "Santa María del Bajo (Seminario)", "Santa Mónica", "Santa Patricia", "Santa Paulina [Agrícola]", "Santa Raquel", 
+      "Santa Rita", "Santa Rosa", "Santa Rosalía", "Santa Rosita", "Santa Silvia", "Santa Susana (Chorona)", "Santa Teresa", 
+      "Santa Teresa (Los Ruices)", "Santa Teresa la Concordia (El Copechi)", "Santa Teresita", "Santa Zarina", "Santander", 
+      "Santerra", "Santo Niño", "Santo Niño (Casas Grandes)", "Sayula", "Sector Industrial Presa", "Sedona Residencial", 
+      "Seminario Mayor", "Seminario Residencial", "Siberia Dos", "Siberia Uno", "Siena Residencial", "Sierra Blanca", 
+      "Sierra Clara", "Sierra Grande Alimentos", "Sierra Vista", "Siete Cerros", "Siete Cerros (Cero Norte)", 
+      "Sociedad Agrícola San Francisco de Batuc", "Sociedad Cooperativa Veinticuatro de Febrero", "Sol Aguilar", "Sol Azteca", 
+      "SolHara", "Soleil Residencial", "Solidaridad", "Solidaridad Vildosola", "Sonacer", "Soneto Residencial", "Sonomex", 
+      "Sonora", "Sonora Hortalizas y Frutales", "Sonora Sinaloa", "Sorento Residencial", "Stanza Florenza", "Stanza Solare Residencial", 
+      "Staus", "Suaqui de la Candelaria", "TEQSA (Las Polleras)", "TM Winco", "Tacupeto", "Taliamento", "Taller Mecánico Diésel", 
+      "Tarento", "Tastiota", "Tecomate (Isla del Tiburón)", "Tehuacán", "Tejabán de Soto", "Tejares", "Tepeyac", 
+      "Terra Blanca Residencial", "Terranova", "Terrazas Del Mirador", "Terrenate", "Tetabiate (Las Vírgenes Seis)", "Tierra Blanca", 
+      "Tierra Bonita [Campestre]", "Tierra Colorada", "Tierra Nueva", "Tiro Al Blanco", "Tirocapes", "Todos Santos", "Tomuco", 
+      "Tomás Valencia", "Topacio Residencial", "Topahue", "Torralba Residencial", "Torre KYO Navarrete", "Torre Santa Mónica", 
+      "Torre de Piedra", "Torreplata Residencial", "Torreón", "Tosali Residencial", "Tres Pechos", "Tres Pueblos", "Trini Pesqueira", 
+      "Tubac", "Tumacacori", "Turquesa Vip", "UGRS", "Universidad", "Universidad del Valle de México", "Unión de Colonos", 
+      "Unión de Crédito Agrícola de Hermosillo", "Unión de Ladrilleros", "Unión de Ladrilleros Manuel Dorado", 
+      "Unión de Ladrilleros Potrero de Bushuard", "Urbi Alameda los Encinos I Residencial", "Urbi Alameda los Encinos II Residencial", 
+      "Urbi Alameda los Fresnos Residencial", "Urbi Villa Campestre", "Urbi Villa del Cedro", "Urbi Villa del Prado", "Urbi Villa del Rey", 
+      "Urbi Villa del Rey Sección Castaños I", "Urbi Villa del Rey Sección Castaños II", "Urbi Villa del Rey Sección Castaños III", 
+      "Urbi Villa del Rey Sección Castaños IV", "Urbi Villa del Rey Sección Manzanos II", "Urbi Villa del Rey Sección los Almendros I", 
+      "Urbi Villa del Rey Sección los Almendros II", "Urbi Villa del Rey Sección los Almendros III", "Uruapan (Bomba Negra)", 
+      "Valenzuela Hermanos", "Valladolid Residencial", "Valle Bonito", "Valle Dorado", "Valle Escondido", "Valle Grande", 
+      "Valle Hermoso", "Valle Natura", "Valle San Francisco", "Valle Verde", "Valle de Napa", "Valle de San Pedro", 
+      "Valle de Santa Mónica", "Valle de los Almendros", "Valle del Lago Residencial", "Valle del Marquez", "Valle del Portal", 
+      "Valle del Sol", "Veintiocho Norte la Báscula Overalma Dos", "Veintitrés de Octubre (La Biznaga)", "Velas Residencial", 
+      "Venecia", "Ventura Residential Club", "Verandah", "Vicente Guerrero", "Villa Bonita", "Villa California Residencial", 
+      "Villa Colonial", "Villa Colonial II", "Villa Dorada", "Villa Florencia", "Villa Fontana", "Villa Guadalupe", 
+      "Villa Guadalupe [Campestre]", "Villa Hermosa", "Villa Lourdes", "Villa Lucía", "Villa Luz (El Pocito)", 
+      "Villa Manantial [Campestre]", "Villa Mercedes", "Villa Merlot Residencial", "Villa Residencial Bonita", "Villa Satélite", 
+      "Villa Sauces", "Villa Sol", "Villa Sonora", "Villa Sureña", "Villa Toscana Residencial", "Villa Universitaria", 
+      "Villa Verde", "Villa de Parras Residencial", "Villa de Seris", "Villa de los Corceles", "Villa del Pitic", 
+      "Villa del Real", "Villa del Rey", "Villalba", "Villas Residencial", "Villas de Cortés", "Villas de Romanza", 
+      "Villas de San Lorenzo", "Villas de Turin", "Villas del Colorado", "Villas del Cortijo", "Villas del Mediterráneo Residencial", 
+      "Villas del Palmar", "Villas del Real", "Villas del Rey", "Villas del Sur", "Vinícola Pitic", "Virgo [Proyectos y Construcciones]", 
+      "Virreyes", "Vista Azul", "Vista Real", "Vista del Lago", "Vista del Sol Residencial", "Vistas Reserva Residencial", 
+      "Viva México", "Vivento", "Viveros Guayacanes", "Viñas de la Costa (El Chamizal)", "Viñedo 2000", "Viñedo Campo Nuevo", 
+      "Viñedo Proyecto Vid (El Buelna)", "Viñedo la Costa", "Viñedo la Esperanza", "Viñedos 2000 Sur", "Viñedos Dolisa", 
+      "Viñedos del Pozzo", "Víctor Córdova", "Y Griega", "Zona Militar Cuartel XV", "Álvaro Obregón", "Áurea Argento", "Áurea Residencial"
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const dl = document.getElementById("lista-colonias");
+      dl.innerHTML = CATALOGO_COLONIAS.map(c => `<option value="${c}">`).join("");
+    });
+
+    let datosInmueble = {};
+
+    function irAPasoContacto() {
+      const colonia = document.getElementById("colonia").value.trim();
+      if (!colonia) {
+        alert("Por favor ingresa la colonia o fraccionamiento.");
+        document.getElementById("colonia").focus();
+        return;
+      }
+
+      datosInmueble = {
+        operacion: document.getElementById("operacion").value,
+        tipo: document.getElementById("tipo").value,
+        colonia: colonia,
+        terreno: document.getElementById("terreno").value || "No especificado",
+        construccion: document.getElementById("construccion").value || "No especificado",
+        recamaras: document.getElementById("recamaras").value,
+        pisos: document.getElementById("pisos").value,
+        banos_completos: document.getElementById("banos_completos").value,
+        medios_banos: document.getElementById("medios_banos").value,
+        cocheras: document.getElementById("cocheras").value,
+        detalles: document.getElementById("detalles").value || "Ninguno"
+      };
+
+      document.getElementById("paso-propiedad").classList.add("hidden");
+      document.getElementById("paso-contacto").classList.remove("hidden");
+    }
+
+    function volverAPasoPropiedad() {
+      document.getElementById("paso-contacto").classList.add("hidden");
+      document.getElementById("paso-propiedad").classList.remove("hidden");
+    }
+
+    async function enviarValuacion(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombre").value.trim();
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const plazo = document.getElementById("plazo").value;
+
+      if (!nombre || !whatsapp) {
+        alert("Por favor completa tu nombre y WhatsApp.");
+        return;
+      }
+
+      const payloadCompleto = {
+        ...datosInmueble,
+        nombre: nombre,
+        whatsapp: whatsapp,
+        plazo: plazo
+      };
+
+      document.getElementById("paso-contacto").classList.add("hidden");
+      document.getElementById("cargando").classList.remove("hidden");
+
+      try {
+        const respuesta = await fetch(URL_APPS_SCRIPT, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payloadCompleto)
+        });
+
+        const data = await respuesta.json();
+
+        if (data.status === "success") {
+          mostrarResultado(data.resultado, payloadCompleto);
+        } else {
+          alert("Hubo un detalle al procesar: " + (data.message || "Inténtalo de nuevo"));
+          volverAPasoPropiedad();
+        }
+      } catch (err) {
+        console.error(err);
+        alert("No fue posible conectar con el servidor. Revisa tu conexión.");
+        volverAPasoPropiedad();
+      } finally {
+        document.getElementById("cargando").classList.add("hidden");
+      }
+    }
+
+    function mostrarResultado(res, payload) {
+      const coloniaFinal = res.colonia_normalizada || payload.colonia;
+      document.getElementById("subtitulo-res").innerText = `${payload.tipo} en ${payload.operacion.toLowerCase()} • Col. ${coloniaFinal}`;
+      document.getElementById("res-min").innerText = res.precio_minimo;
+      document.getElementById("res-max").innerText = res.precio_maximo;
+      document.getElementById("res-analisis").innerText = res.analisis_zona;
+
+      if (res.comparable) {
+        document.getElementById("comp-titulo").innerText = res.comparable.titulo;
+        document.getElementById("comp-precio").innerText = res.comparable.precio_referencia;
+        document.getElementById("comp-metros").innerText = res.comparable.metros;
+        document.getElementById("comp-distribucion").innerText = `${res.comparable.recamaras} • ${res.comparable.banos}`;
+        document.getElementById("comp-detalles").innerText = res.comparable.detalles;
+      }
+
+      const textoWA = encodeURIComponent(`Hola, coticé mi ${payload.tipo} en ${coloniaFinal} en el valuador en línea (estimado: ${res.precio_minimo} - ${res.precio_maximo}). Deseo confirmar el precio exacto con una opinión de valor formal.`);
+      document.getElementById("btn-whatsapp-asesor").href = `https://wa.me/52${WHATSAPP_ASESOR}?text=${textoWA}`;
+
+      document.getElementById("resultado").classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
