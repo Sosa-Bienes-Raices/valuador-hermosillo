@@ -656,6 +656,13 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         return;
       }
 
+      // Evento de Meta Pixel para registrar el Lead real:
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {
+          content_name: 'Valuacion Inmueble Hermosillo'
+        });
+      }
+
       const payloadCompleto = {
         ...datosInmueble,
         nombre: nombre,
