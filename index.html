@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calcula el Valor de tu Propiedad | Hermosillo</title>
+  <title>¿Quieres Vender, Rentar o Comprar? | Valor de Mercado en Hermosillo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <!-- Meta Pixel Code -->
@@ -31,7 +31,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
     <div class="max-w-4xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <span class="text-2xl text-blue-600 font-black"><i class="fa-solid fa-house-chimney"></i></span>
-        <span class="text-xl font-bold tracking-tight text-slate-900">Valuador Inmobiliario</span>
+        <span class="text-xl font-bold tracking-tight text-slate-900">Guía de Valor Inmobiliario</span>
       </div>
       <span class="text-xs font-semibold bg-blue-50 text-blue-700 py-1 px-3 rounded-full border border-blue-200">Hermosillo, Sonora</span>
     </div>
@@ -41,8 +41,11 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
   <main class="max-w-xl mx-auto px-4 py-8 flex-grow w-full">
     
     <div class="text-center mb-8">
-      <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">¿Cuánto vale tu propiedad?</h1>
-      <p class="text-slate-600 mt-2 text-sm sm:text-base">Obtén un estimado en 1 minuto comparando propiedades activas en tu colonia.</p>
+      <span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+        ¿Piensas Vender, Rentar o Comprar?
+      </span>
+      <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">Conoce el valor real de tu propiedad</h1>
+      <p class="text-slate-600 mt-2 text-sm sm:text-base">Calcula en 1 minuto el precio sugerido de salida o compra comparando el mercado actual en tu colonia.</p>
     </div>
 
     <!-- TARJETA DEL FORMULARIO -->
@@ -58,10 +61,11 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         <form id="form-propiedad" class="space-y-4">
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">¿Qué deseas hacer?</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">¿Cuál es tu objetivo?</label>
               <select id="operacion" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
-                <option value="Venta">Vender</option>
-                <option value="Renta">Rentar</option>
+                <option value="Venta" selected>Vender al mejor precio</option>
+                <option value="Renta">Rentar mi propiedad</option>
+                <option value="Comprar">Comprar (saber cuánto ofrecer)</option>
               </select>
             </div>
             <div>
@@ -189,7 +193,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         </div>
 
         <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 text-xs text-blue-900 leading-relaxed">
-          <i class="fa-solid fa-calculator text-blue-600 mr-1"></i> <b>¡Análisis de mercado listo!</b> Ingresa tus datos para desbloquear el rango de valor y la propiedad comparable de tu colonia.
+          <i class="fa-solid fa-chart-pie text-blue-600 mr-1"></i> <b>¡Cálculo de mercado listo!</b> Ingresa tus datos para ver el rango de precio sugerido y la propiedad de referencia en tu zona.
         </div>
 
         <form id="form-contacto" class="space-y-4" onsubmit="enviarValuacion(event)">
@@ -199,22 +203,30 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">WhatsApp / Teléfono *</label>
-            <input type="tel" id="whatsapp" required placeholder="Ej. 662 123 4567" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">WhatsApp / Teléfono (10 dígitos) *</label>
+            <input 
+              type="tel" 
+              id="whatsapp" 
+              required 
+              maxlength="10" 
+              pattern="[0-9]{10}"
+              placeholder="Ej. 6621234567" 
+              class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+            <span class="text-[10px] text-slate-400">Ingresa tu número local a 10 dígitos sin espacios ni guiones.</span>
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">¿Qué tan pronto te gustaría comercializarla?</label>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">¿En cuánto tiempo planeas realizar la operación?</label>
             <select id="plazo" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
               <option value="Menos de 1 mes">En menos de 1 mes (Urgente)</option>
               <option value="1 a 3 meses" selected>En los próximos 1 a 3 meses</option>
               <option value="3 a 6 meses">De 3 a 6 meses</option>
-              <option value="Solo curiosidad">Solo quiero saber el valor por curiosidad</option>
+              <option value="Solo curiosidad">Solo quiero conocer el valor para evaluar opciones</option>
             </select>
           </div>
 
           <button type="submit" id="btn-calcular" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition duration-200 text-base shadow-lg shadow-emerald-600/20 mt-2">
-            Ver Mi Rango y Propiedades Comparables 📊
+            Ver Precio de Mercado y Comparables 📊
           </button>
         </form>
       </div>
@@ -223,7 +235,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
       <div id="cargando" class="hidden py-12 text-center">
         <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent mb-4"></div>
         <p class="text-sm font-bold text-slate-800">Analizando el mercado inmobiliario en la colonia...</p>
-        <p class="text-xs text-slate-500 mt-1">Evaluando equipamiento reportado y buscando comparables similares.</p>
+        <p class="text-xs text-slate-500 mt-1">Evaluando equipamiento y comparando precios recientes de la zona.</p>
       </div>
 
       <!-- RESULTADO -->
@@ -232,13 +244,13 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
           <span class="inline-flex items-center justify-center w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full mb-3 text-2xl">
             <i class="fa-solid fa-check"></i>
           </span>
-          <h2 class="text-2xl font-black text-slate-900">Rango de Valor Estimado</h2>
+          <h2 class="text-2xl font-black text-slate-900">Rango de Valor Sugerido</h2>
           <p class="text-xs text-slate-500 mt-1" id="subtitulo-res"></p>
         </div>
 
         <!-- Rango de Valor y Aviso de Revisión Automática -->
         <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 text-center mb-6">
-          <span class="text-xs font-semibold text-blue-700 uppercase tracking-wider block mb-1">Rango preliminar sugerido</span>
+          <span class="text-xs font-semibold text-blue-700 uppercase tracking-wider block mb-1">Precio estimado de salida / mercado</span>
           <div class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center justify-center space-x-2">
             <span id="res-min" class="text-blue-600"></span>
             <span class="text-slate-400 font-normal text-xl">-</span>
@@ -248,8 +260,8 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
           <!-- LEYENDA CLARA DE REVISIÓN AUTOMÁTICA -->
           <div class="mt-4 pt-3 border-t border-blue-200/60 bg-white/70 rounded-xl p-3 text-left sm:text-center">
             <p class="text-xs text-slate-700 leading-relaxed">
-              <i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1.5"></i>
-              <b>Nota importante:</b> Este rango está basado en una <b>revisión automática algorítmica</b>, por lo que el precio final real de tu inmueble puede variar según su conservación, acabados y detalles específicos. Te sugerimos <b>confirmar el valor exacto con el asesor</b>.
+              <i class="fa-solid fa-circle-info text-blue-600 mr-1.5"></i>
+              <b>Guía comercial:</b> Este rango es una <b>referencia de mercado algorítmica</b> para que conozcas cuánto pedir u ofrecer. El valor final depende de acabados específicos y negociación directa. Puedes <b>revisar la estrategia con un asesor</b>.
             </p>
           </div>
         </div>
@@ -258,7 +270,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-5 mb-6">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-bold text-amber-800 uppercase tracking-wide flex items-center">
-              <i class="fa-solid fa-scale-balanced mr-1.5 text-amber-600"></i> Referencia Real en tu Colonia
+              <i class="fa-solid fa-scale-balanced mr-1.5 text-amber-600"></i> Inmueble de Referencia en tu Colonia
             </span>
             <span id="comp-precio" class="text-xs font-black bg-amber-200/80 text-amber-900 py-1 px-2.5 rounded-lg"></span>
           </div>
@@ -281,10 +293,10 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         <!-- LLAMADO A LA ACCIÓN CONTEXTUALIZADO -->
         <div class="border-t border-slate-100 pt-6 text-center">
           <p class="text-xs text-slate-600 mb-3">
-            Para validar el precio exacto de cierre o publicación, solicita tu revisión sin costo:
+            ¿Quieres ponerla en promoción o validar los números con un especialista?
           </p>
           <a id="btn-whatsapp-asesor" target="_blank" href="#" class="inline-flex items-center justify-center w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition duration-200 text-sm">
-            <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Confirmar Precio Real con el Asesor (Sin costo)
+            <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Asesorarme para Vender o Rentar (Sin costo)
           </a>
         </div>
       </div>
@@ -293,14 +305,13 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
   </main>
 
   <footer class="py-6 text-center text-xs text-slate-400">
-    &copy; 2026 Valuador Inmobiliario - Hermosillo, Sonora. Estimaciones preliminares sujetas a visita física.
+    &copy; 2026 Sosa Bienes Raíces - Hermosillo, Sonora. Precios sugeridos como guía informativa de mercado.
   </footer>
 
   <script>
     const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxEa7-8QgnxahpLCCfyZ1mq3WfNMpRkz_vbTgEXuBDgKSkaJ8HpH-Lhu-iNJF6ctSLpqg/exec";
     const WHATSAPP_ASESOR = "6622057331";
 
-    // CATÁLOGO EXTRAÍDO DE COLONIAS.XLSX[cite: 7]
     const CATALOGO_COLONIAS = [
       "15 \"A\"", "20 Noviembre Cuatro", "20 de Noviembre", "22 de Septiembre", "26 de Octubre", "4 de Marzo", "5 de Mayo", "AMSA (TIASA)", 
       "Acacia Residencial", "Acuícola Genitech", "Acuícola Polo", "Acuícola Selecta", "Acuícola Tastiota", "Adolfo López Mateos", 
@@ -421,7 +432,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
       "La Candelaria", "La Capilla", "La Caridad", "La Casita", "La Casona", "La Cercada", "La Chacra", "La Chicharra", 
       "La Chinapita", "La Chineña", "La Chinita Tres (Campestre Jiménez)", "La Chira", "La Choya", "La Choya II Sección", 
       "La Chueca", "La Colmena (Pozo Cuatro) [Huerta]", "La Coruba", "La Coruña Residencial", "La Coruña Residencial Almar", 
-      "La Coruña Residencial Portonovo", "La Coteña", "La Coyota (La Coyotita)", "La Coyotita", "La Cruz", "La Cuesta (Pozo Dos) [Viñedo]", 
+      "La Coruña Residencial Portonovo", "La标志", "La Coyota (La Coyotita)", "La Coyotita", "La Cruz", "La Cuesta (Pozo Dos) [Viñedo]", 
       "La Cuesta [Engorda]", "La Cuesta [Viñedo]", "La Cuichi (Pelícano)", "La Encantada Privada Alebrijes", "La Encantada Privada Azulejos", 
       "La Encantada Privada Leyendas", "La Encantada Privada Tesoros", "La Escondida", "La Escondida (Víctor Leyva)", "La Escopeta (Los Guayacanes)", 
       "La Esperanza", "La Esperanza (René Sicre)", "La Estación Dessens", "La Estrella", "La Finca", "La Florida", "La Florida [viñedo]", 
@@ -648,25 +659,34 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
       e.preventDefault();
 
       const nombre = document.getElementById("nombre").value.trim();
-      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const inputWhatsapp = document.getElementById("whatsapp");
+      const whatsappLimpio = inputWhatsapp.value.replace(/\D/g, "");
       const plazo = document.getElementById("plazo").value;
 
-      if (!nombre || !whatsapp) {
-        alert("Por favor completa tu nombre y WhatsApp.");
+      if (!nombre) {
+        alert("Por favor escribe tu nombre completo.");
+        document.getElementById("nombre").focus();
         return;
       }
 
-      // Evento de Meta Pixel para registrar el Lead real:
+      // Validación estricta a 10 dígitos numéricos
+      if (whatsappLimpio.length !== 10) {
+        alert("Por favor ingresa un número de teléfono válido a 10 dígitos (ejemplo: 6621234567).");
+        inputWhatsapp.focus();
+        return;
+      }
+
+      // Evento de Meta Pixel para registrar el Lead
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', {
-          content_name: 'Valuacion Inmueble Hermosillo'
+          content_name: 'Guia Valor Inmueble Hermosillo'
         });
       }
 
       const payloadCompleto = {
         ...datosInmueble,
         nombre: nombre,
-        whatsapp: whatsapp,
+        whatsapp: whatsappLimpio,
         plazo: plazo
       };
 
@@ -699,7 +719,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
 
     function mostrarResultado(res, payload) {
       const coloniaFinal = res.colonia_normalizada || payload.colonia;
-      document.getElementById("subtitulo-res").innerText = `${payload.tipo} en ${payload.operacion.toLowerCase()} • Col. ${coloniaFinal}`;
+      document.getElementById("subtitulo-res").innerText = `${payload.tipo} • Col. ${coloniaFinal} • Objetivo: ${payload.operacion}`;
       document.getElementById("res-min").innerText = res.precio_minimo;
       document.getElementById("res-max").innerText = res.precio_maximo;
       document.getElementById("res-analisis").innerText = res.analisis_zona;
@@ -712,7 +732,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         document.getElementById("comp-detalles").innerText = res.comparable.detalles;
       }
 
-      const textoWA = encodeURIComponent(`Hola, coticé mi ${payload.tipo} en ${coloniaFinal} en el valuador en línea (estimado: ${res.precio_minimo} - ${res.precio_maximo}). Deseo confirmar el precio exacto con una opinión de valor formal.`);
+      const textoWA = encodeURIComponent(`Hola Cristian, consulté mi ${payload.tipo} en ${coloniaFinal} en la plataforma (estimado: ${res.precio_minimo} - ${res.precio_maximo}). Mi objetivo es ${payload.operacion.toLowerCase()} y me gustaría recibir asesoría para revisar la estrategia comercial.`);
       document.getElementById("btn-whatsapp-asesor").href = `https://wa.me/52${WHATSAPP_ASESOR}?text=${textoWA}`;
 
       document.getElementById("resultado").classList.remove("hidden");
