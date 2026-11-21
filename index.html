@@ -312,6 +312,10 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
     const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxEa7-8QgnxahpLCCfyZ1mq3WfNMpRkz_vbTgEXuBDgKSkaJ8HpH-Lhu-iNJF6ctSLpqg/exec";
     const WHATSAPP_ASESOR = "6622057331";
 
+    // Captura automática del origen/anuncio (?origen=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const ORIGEN_LEAD = urlParams.get("origen") || "Directo / Organico";
+
     const CATALOGO_COLONIAS = [
       "15 \"A\"", "20 Noviembre Cuatro", "20 de Noviembre", "22 de Septiembre", "26 de Octubre", "4 de Marzo", "5 de Mayo", "AMSA (TIASA)", 
       "Acacia Residencial", "Acuícola Genitech", "Acuícola Polo", "Acuícola Selecta", "Acuícola Tastiota", "Adolfo López Mateos", 
@@ -669,14 +673,12 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         return;
       }
 
-      // Validación estricta a 10 dígitos numéricos
       if (whatsappLimpio.length !== 10) {
         alert("Por favor ingresa un número de teléfono válido a 10 dígitos (ejemplo: 6621234567).");
         inputWhatsapp.focus();
         return;
       }
 
-      // Evento de Meta Pixel para registrar el Lead
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', {
           content_name: 'Guia Valor Inmueble Hermosillo'
@@ -687,7 +689,8 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         ...datosInmueble,
         nombre: nombre,
         whatsapp: whatsappLimpio,
-        plazo: plazo
+        plazo: plazo,
+        origen: ORIGEN_LEAD
       };
 
       document.getElementById("paso-contacto").classList.add("hidden");
@@ -732,7 +735,6 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
         document.getElementById("comp-detalles").innerText = res.comparable.detalles;
       }
 
-      // Personalizar texto del botón según la operación elegida
       const textoBtn = document.getElementById("texto-btn-wa");
       if (payload.operacion === "Comprar") {
         textoBtn.innerText = "Ver opciones disponibles en esta zona";
