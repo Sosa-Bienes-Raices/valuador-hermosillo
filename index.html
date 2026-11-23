@@ -27,111 +27,112 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
 <body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
 
   <!-- Encabezado con Marca Sosa Bienes Raíces + Respaldo Next -->
-  <header class="bg-white border-b border-slate-200 py-3 px-4 sm:px-6 sticky top-0 z-50 shadow-sm">
+  <header class="bg-white border-b border-slate-200 py-2.5 px-4 sm:px-6 sticky top-0 z-50 shadow-sm">
     <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
-      <div class="flex items-center space-x-3">
+      <div class="flex items-center space-x-2.5">
         <img 
           src="./logo-sosa.png" 
           alt="Sosa Bienes Raíces" 
-          class="h-9 sm:h-10 w-auto object-contain"
+          class="h-8 sm:h-9 w-auto object-contain"
           onerror="this.style.display='none'; document.getElementById('fallback-sosa').classList.remove('hidden');">
         <span id="fallback-sosa" class="hidden text-lg sm:text-xl font-black tracking-tight text-slate-900">Sosa Bienes Raíces</span>
 
-        <span class="h-6 w-px bg-slate-200"></span>
+        <span class="h-5 w-px bg-slate-200"></span>
 
         <div class="flex items-center space-x-1.5">
           <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold hidden sm:inline">Respaldo</span>
           <img 
             src="./logo-next.png" 
             alt="Next Bienes Raíces" 
-            class="h-7 sm:h-8 w-auto object-contain"
+            class="h-6 sm:h-7 w-auto object-contain"
             onerror="this.style.display='none'; document.getElementById('fallback-next').classList.remove('hidden');">
           <span id="fallback-next" class="hidden text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">NEXT</span>
         </div>
       </div>
 
-      <span class="text-[11px] sm:text-xs font-semibold bg-blue-50 text-blue-700 py-1 px-2.5 sm:px-3 rounded-full border border-blue-200 whitespace-nowrap">
+      <span class="text-[11px] font-semibold bg-blue-50 text-blue-700 py-1 px-2.5 rounded-full border border-blue-200 whitespace-nowrap">
         <i class="fa-solid fa-location-dot mr-1"></i>Hermosillo, Son.
       </span>
     </div>
   </header>
 
   <!-- Contenedor Principal -->
-  <main class="max-w-xl mx-auto px-4 py-7 flex-grow w-full">
+  <main class="max-w-xl mx-auto px-4 py-4 sm:py-6 flex-grow w-full">
     
-    <!-- Encabezado de Valor -->
-    <div class="text-center mb-6">
-      <p class="text-sm sm:text-base font-extrabold text-blue-600 uppercase tracking-wide mb-1">
+    <!-- Encabezado de Valor Compacto -->
+    <div class="text-center mb-4">
+      <p class="text-xs sm:text-sm font-extrabold text-blue-600 uppercase tracking-wide">
         Sosa Bienes Raíces • Hermosillo
       </p>
-      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mt-0.5">
         Conoce el valor real de tu propiedad
       </h1>
-      <p class="text-slate-600 mt-2 text-sm sm:text-base">
-        Calcula en 1 minuto el precio sugerido de salida o compra comparando el mercado actual en tu colonia.
+      <p class="text-slate-600 mt-1 text-xs sm:text-sm">
+        Estimación rápida según el mercado actual de tu colonia.
       </p>
     </div>
 
-    <!-- TARJETA DE CONFIANZA Y PRUEBA SOCIAL (FOTO ASESORES + +200 ANÁLISIS) -->
-    <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 mb-6">
-      <div class="flex items-center gap-3.5">
+    <!-- TARJETA DE CONFIANZA COMPACTA -->
+    <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-3 mb-4">
+      <div class="flex items-center gap-3">
         <img 
           src="./asesores-sosa.jpg" 
           alt="Cristian Sosa y Claudia Castro - Sosa Bienes Raíces" 
-          class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover object-top border border-slate-200 shrink-0"
+          class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover object-top border border-slate-200 shrink-0"
           onerror="this.style.display='none'; document.getElementById('fallback-asesores').classList.remove('hidden');">
-        <div id="fallback-asesores" class="hidden w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-2xl shrink-0">
+        <div id="fallback-asesores" class="hidden w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl shrink-0">
           <i class="fa-solid fa-user-tie"></i>
         </div>
 
         <div class="min-w-0 flex-1">
-          <p class="text-sm font-extrabold text-slate-900 truncate">
+          <p class="text-xs sm:text-sm font-extrabold text-slate-900 truncate">
             Cristian Sosa &amp; Claudia Castro
           </p>
-          <p class="text-xs text-blue-700 font-semibold">
+          <p class="text-[11px] text-blue-700 font-semibold truncate">
             Asesores Inmobiliarios • Sosa Bienes Raíces / Next
           </p>
-          <p class="text-xs text-slate-600 mt-1 leading-snug">
-  Atención personalizada en Hermosillo para vender, rentar o comprar al mejor valor de mercado.
-</p>
+          <p class="text-[11px] text-slate-600 mt-0.5 leading-tight">
+            Atención personalizada en Hermosillo para vender, rentar o comprar al mejor valor de mercado.
+          </p>
         </div>
       </div>
 
-      <!-- Métricas de confianza -->
-      <div class="grid grid-cols-3 gap-2 mt-3.5 pt-3 border-t border-slate-100 text-center">
-        <div class="bg-slate-50 rounded-lg py-1.5 px-2">
-          <p class="text-xs sm:text-sm font-black text-slate-900">+250</p>
-          <p class="text-[10px] text-slate-500 leading-tight">Análisis en Hermosillo</p>
+      <!-- Fila fina de 3 métricas -->
+      <div class="grid grid-cols-3 gap-1.5 mt-2.5 pt-2 border-t border-slate-100 text-center">
+        <div class="bg-slate-50 rounded-md py-1 px-1.5">
+          <p class="text-xs font-black text-slate-900">+250</p>
+          <p class="text-[10px] text-slate-500 leading-none">Análisis en Hermosillo</p>
         </div>
-        <div class="bg-slate-50 rounded-lg py-1.5 px-2">
-          <p class="text-xs sm:text-sm font-black text-slate-900">1 min</p>
-          <p class="text-[10px] text-slate-500 leading-tight">Estimación rápida</p>
+        <div class="bg-slate-50 rounded-md py-1 px-1.5">
+          <p class="text-xs font-black text-slate-900">1 min</p>
+          <p class="text-[10px] text-slate-500 leading-none">Estimación rápida</p>
         </div>
-        <div class="bg-slate-50 rounded-lg py-1.5 px-2">
-          <p class="text-xs sm:text-sm font-black text-slate-900">Directo</p>
-          <p class="text-[10px] text-slate-500 leading-tight">Trato sin call center</p>
+        <div class="bg-slate-50 rounded-md py-1 px-1.5">
+          <p class="text-xs font-black text-slate-900">Directo</p>
+          <p class="text-[10px] text-slate-500 leading-none">Trato sin call center</p>
         </div>
       </div>
     </div>
 
     <!-- TARJETA DEL FORMULARIO -->
-    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 sm:p-8">
+    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-5 sm:p-7">
 
       <!-- PASO A: DATOS DE LA PROPIEDAD -->
       <div id="paso-propiedad">
-        <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center justify-between mb-3.5">
           <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Paso 1 de 2: Características</span>
           <span class="text-xs text-slate-400">Datos del inmueble</span>
         </div>
 
-        <form id="form-propiedad" class="space-y-4">
+        <form id="form-propiedad" class="space-y-3.5">
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">¿Cuál es tu objetivo?</label>
               <select id="operacion" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
-                <option value="Venta" selected>Vender al mejor precio</option>
-                <option value="Renta">Rentar mi propiedad</option>
-                <option value="Comprar">Comprar (saber cuánto ofrecer)</option>
+                <option value="Venta" selected>Vender</option>
+                <option value="Renta">Rentar</option>
+                <option value="Comprar">Comprar</option>
+                <option value="Solo valuar">Solo valuar</option>
               </select>
             </div>
             <div>
@@ -239,13 +240,13 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
             </div>
             <textarea 
               id="detalles" 
-              rows="5" 
+              rows="4" 
               placeholder="- Aire acondicionado y calefacción central&#10;- 3 minisplits&#10;- Cocina integral con granito&#10;- Sistema de alarma y cámaras de seguridad&#10;- Hidroneumático, tinaco y boiler&#10;- Totalmente amueblado (si aplica)..." 
               class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-y"></textarea>
             <p class="text-[11px] text-slate-400 mt-1">Escribe o pega cada elemento hacia abajo con guiones o renglones libres.</p>
           </div>
 
-          <button type="button" onclick="irAPasoContacto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition duration-200 text-base shadow-md mt-4">
+          <button type="button" onclick="irAPasoContacto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition duration-200 text-base shadow-md mt-2">
             Continuar al Siguiente Paso &rarr;
           </button>
         </form>
@@ -278,7 +279,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
               pattern="[0-9]{10}"
               placeholder="Ej. 6621234567" 
               class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
-            <span class="text-[10px] text-slate-400">Ingresa tu número local a 10 dígitos sin espacios ni guiones. Solo se usa para darle seguimiento a tu consulta.</span>
+            <span class="text-[11px] text-slate-500 mt-1 block">Tu número solo se usa para enviarte tu valuación y darle seguimiento, sin spam.</span>
           </div>
 
           <div>
@@ -370,7 +371,7 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
     </div>
   </main>
 
-  <footer class="py-6 text-center text-xs text-slate-400">
+  <footer class="py-5 text-center text-xs text-slate-400">
     &copy; 2026 Sosa Bienes Raíces - Hermosillo, Sonora. Precios sugeridos como guía informativa de mercado.
   </footer>
 
