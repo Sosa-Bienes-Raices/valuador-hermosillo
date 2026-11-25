@@ -344,6 +344,22 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
           </p>
         </div>
 
+        <!-- DISPONIBLES ACTUALMENTE EN LA COLONIA -->
+        <div id="bloque-disponibles" class="hidden bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 mb-5">
+          <h4 class="text-xs font-bold text-emerald-900 uppercase tracking-wide mb-2.5 flex items-center">
+            <i class="fa-solid fa-tag mr-1.5 text-emerald-600"></i> Disponibles en tu colonia
+          </h4>
+          <ul id="lista-disponibles" class="space-y-1.5 text-xs text-slate-700"></ul>
+        </div>
+
+        <!-- CERRADAS EN LA COLONIA (ÚLTIMOS 2 AÑOS) -->
+        <div id="bloque-cerradas" class="hidden bg-amber-50/70 border border-amber-200 rounded-2xl p-4 mb-5">
+          <h4 class="text-xs font-bold text-amber-900 uppercase tracking-wide mb-2.5 flex items-center">
+            <i class="fa-solid fa-check-double mr-1.5 text-amber-700"></i> Cerradas en tu colonia (últimos 2 años)
+          </h4>
+          <ul id="lista-cerradas" class="space-y-1.5 text-xs text-slate-700"></ul>
+        </div>
+
         <!-- TARJETA DEL COMPARABLE EN LA ZONA -->
         <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-5 mb-5">
           <div class="flex items-center justify-between mb-2">
@@ -800,6 +816,37 @@ src="https://www.facebook.com/tr?id=1617363629930900&ev=PageView&noscript=1"
       document.getElementById("res-min").innerText = res.precio_minimo;
       document.getElementById("res-max").innerText = res.precio_maximo;
       document.getElementById("res-analisis").innerText = res.analisis_zona;
+
+      // Disponibles en la colonia (solo tipo, colonia, estatus y precio)
+      const bloqueDisp = document.getElementById("bloque-disponibles");
+      const listaDisp = document.getElementById("lista-disponibles");
+      if (Array.isArray(res.disponibles_colonia) && res.disponibles_colonia.length > 0) {
+        listaDisp.innerHTML = res.disponibles_colonia.map(item =>
+          `<li class="flex items-center justify-between bg-white/80 rounded-lg px-3 py-2 border border-emerald-100 gap-2">
+            <span><b>${item.tipo}</b> en ${item.colonia} <span class="text-slate-500">(${item.estatus})</span></span>
+            <span class="font-bold text-emerald-800 whitespace-nowrap">${item.precio}</span>
+          </li>`
+        ).join("");
+        bloqueDisp.classList.remove("hidden");
+      } else {
+        bloqueDisp.classList.add("hidden");
+      }
+
+      // Cerradas en los últimos 2 años (ajustadas ~9% anual; tiempo solo si existe)
+      const bloqueCerr = document.getElementById("bloque-cerradas");
+      const listaCerr = document.getElementById("lista-cerradas");
+      if (Array.isArray(res.cerradas_colonia) && res.cerradas_colonia.length > 0) {
+        listaCerr.innerHTML = res.cerradas_colonia.map(item => {
+          const tiempoTxt = (item.dias_venta && item.dias_venta > 0) ? ` • ${item.dias_venta} días` : "";
+          return `<li class="flex items-center justify-between bg-white/80 rounded-lg px-3 py-2 border border-amber-100 gap-2">
+            <span><b>${item.tipo}</b> en ${item.colonia} <span class="text-slate-500">(${item.estatus} ${item.fecha_cierre}${tiempoTxt})</span></span>
+            <span class="font-bold text-amber-900 whitespace-nowrap">${item.precio_ajustado}</span>
+          </li>`;
+        }).join("");
+        bloqueCerr.classList.remove("hidden");
+      } else {
+        bloqueCerr.classList.add("hidden");
+      }
 
       if (res.comparable) {
         document.getElementById("comp-titulo").innerText = res.comparable.titulo;
